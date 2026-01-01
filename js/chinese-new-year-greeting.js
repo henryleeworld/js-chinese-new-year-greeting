@@ -1,160 +1,177 @@
-var pinyin1 = document.getElementById("pinyin1");
-var pinyin2 = document.getElementById("pinyin2");
-var pinyin3 = document.getElementById("pinyin3");
-var pinyin4 = document.getElementById("pinyin4");
-
-var phraseChinese1 = document.getElementById("phraseChinese1");
-var phraseChinese2 = document.getElementById("phraseChinese2");
-var phraseChinese3 = document.getElementById("phraseChinese3");
-var phraseChinese4 = document.getElementById("phraseChinese4");
-
-var phraseEnglish = document.getElementById("phraseEnglish");
-
-var button = document.getElementById("button");
-var random = Math.random();
-
-// Arrays for pinyin and Chinese characters
-var p1 = [
-    "shǔ",
-    "suì",
-    "xīn",
-    "gōng",
-    "dà",
-    "wàn",
-    "nián",
-    "shēn",
-    "xīn",
-    "gōng"
+const pinyins = [
+    document.getElementById("pinyin1"),
+    document.getElementById("pinyin2"),
+    document.getElementById("pinyin3"),
+    document.getElementById("pinyin4")
 ];
 
-var p2 = [
-    "nián",
-    "suì",
-    "nián",
-    "xǐ",
-    "jí",
-    "shì",
-    "nián",
-    "tǐ",
-    "xiǎng",
-    "hè"
+const chineses = [
+    document.getElementById("phraseChinese1"),
+    document.getElementById("phraseChinese2"),
+    document.getElementById("phraseChinese3"),
+    document.getElementById("phraseChinese4")
 ];
 
-var p3 = [
-    "dà",
-    "píng",
-    "kuài",
-    "fā",
-    "dà",
-    "rú",
-    "yǒu",
-    "jiàn",
-    "shì",
-    "xīn"
-];
+const phraseEnglish = document.getElementById("phraseEnglish");
+const button = document.getElementById("button");
 
-var p4 = [
-    "jí",
-    "ān",
-    "lè",
-    "cái",
-    "lì",
-    "yì",
-    "yú",
-    "kāng",
-    "chéng",
-    "xǐ"
-];
+const ZODIACS = ["鼠", "牛", "虎", "兔", "龍", "蛇", "馬", "羊", "猴", "雞", "狗", "豬"];
 
-var phrasesC1 = [
-    "鼠",
-    "歲",
-    "新",
-    "恭",
-    "大",
-    "萬",
-    "年",
-    "身",
-    "心",
-    "恭"
-];
-
-var phrasesC2 = [
-    "年",
-    "歲",
-    "年",
-    "喜",
-    "吉",
-    "事",
-    "年",
-    "體",
-    "想",
-    "賀"
-];
-
-var phrasesC3 = [
-    "大",
-    "平",
-    "快",
-    "發",
-    "大",
-    "如",
-    "有",
-    "健",
-    "事",
-    "新"
-];
-
-var phrasesC4 = [
-    "吉",
-    "安",
-    "樂",
-    "財",
-    "利",
-    "意",
-    "餘",
-    "康",
-    "成",
-    "禧"
-];
-
-// English phrases
-var phrasesE = [
-    "(Wish you luck in the year of the rat)",
-    "(Everlasting peace and safety year after year)",
-    "(Happy new year)",
-    "(Congratulations on your prosperity)",
-    "(Great luck and prosperity)",
-    "(May 10,000 things go according to your wishes)",
-    "(Every year have more than you need)",
-    "(Wishing you good health)",
-    "(May all your heart's desires come true)",
-    "(Congratulations in the new year)"
-];
-
-// Sets text content as random phrase from arrays
-pinyin1.textContent = p1[Math.floor(random * p1.length)];
-pinyin2.textContent = p2[Math.floor(random * p2.length)];
-pinyin3.textContent = p3[Math.floor(random * p3.length)];
-pinyin4.textContent = p4[Math.floor(random * p4.length)];
-phraseChinese1.textContent = phrasesC1[Math.floor(random * phrasesC1.length)];
-phraseChinese2.textContent = phrasesC2[Math.floor(random * phrasesC2.length)];
-phraseChinese3.textContent = phrasesC3[Math.floor(random * phrasesC3.length)];
-phraseChinese4.textContent = phrasesC4[Math.floor(random * phrasesC4.length)];
-phraseEnglish.textContent = phrasesE[Math.floor(random * phrasesE.length)];
-
-var onClick = function() {
-    var random = Math.random();
-    pinyin1.textContent = p1[Math.floor(random * p1.length)];
-    pinyin2.textContent = p2[Math.floor(random * p2.length)];
-    pinyin3.textContent = p3[Math.floor(random * p3.length)];
-    pinyin4.textContent = p4[Math.floor(random * p4.length)];
-    phraseChinese1.textContent = phrasesC1[Math.floor(random * phrasesC1.length)];
-    phraseChinese2.textContent = phrasesC2[Math.floor(random * phrasesC2.length)];
-    phraseChinese3.textContent = phrasesC3[Math.floor(random * phrasesC3.length)];
-    phraseChinese4.textContent = phrasesC4[Math.floor(random * phrasesC4.length)];
-    phraseEnglish.textContent = phrasesE[Math.floor(random * phrasesE.length)];
+function getCurrentZodiac() {
+    const year = new Date().getFullYear();
+    return ZODIACS[(year - 1900) % 12];
 }
 
-// Sets text content as random phrase when button is clicked
-button.addEventListener("click", onClick);
+const CURRENT_ZODIAC = getCurrentZodiac();
+
+const phrases = [{
+        c: ["新", "年", "快", "樂"],
+        p: ["xīn", "nián", "kuài", "lè"],
+        e: "(Happy New Year)"
+    },
+    {
+        c: ["恭", "喜", "發", "財"],
+        p: ["gōng", "xǐ", "fā", "cái"],
+        e: "(Wishing you prosperity)"
+    },
+    {
+        c: ["歲", "歲", "平", "安"],
+        p: ["suì", "suì", "píng", "ān"],
+        e: "(Peace year after year)"
+    },
+    {
+        c: ["萬", "事", "如", "意"],
+        p: ["wàn", "shì", "rú", "yì"],
+        e: "(May everything go your way)"
+    },
+    {
+        c: ["身", "心", "健", "康"],
+        p: ["shēn", "xīn", "jiàn", "kāng"],
+        e: "(Wishing you good health)"
+    },
+    {
+        c: ["心", "想", "事", "成"],
+        p: ["xīn", "xiǎng", "shì", "chéng"],
+        e: "(May all wishes come true)"
+    },
+    {
+        c: ["年", "年", "有", "餘"],
+        p: ["nián", "nián", "yǒu", "yú"],
+        e: "(Abundance year after year)"
+    },
+    {
+        c: ["財", "源", "廣", "進"],
+        p: ["cái", "yuán", "guǎng", "jìn"],
+        e: "(Wealth flows in)"
+    },
+    {
+        c: ["步", "步", "高", "升"],
+        p: ["bù", "bù", "gāo", "shēng"],
+        e: "(Career advancement)"
+    },
+    {
+        c: ["平", "安", "喜", "樂"],
+        p: ["píng", "ān", "xǐ", "lè"],
+        e: "(Peace and joy)"
+    },
+    {
+        c: ["大", "展", "鴻", "圖"],
+        p: ["dà", "zhǎn", "hóng", "tú"],
+        e: "(Great success ahead)"
+    },
+    {
+        c: ["富", "貴", "滿", "堂"],
+        p: ["fù", "guì", "mǎn", "táng"],
+        e: "(Wealth fills your home)"
+    },
+    {
+        c: ["鼠", "年", "大", "吉"],
+        p: ["shǔ", "nián", "dà", "jí"],
+        e: "(Good luck in the Year of the Rat)",
+        zodiac: "鼠"
+    },
+    {
+        c: ["牛", "年", "亨", "通"],
+        p: ["niú", "nián", "hēng", "tōng"],
+        e: "(Smooth success in the Year of the Ox)",
+        zodiac: "牛"
+    },
+    {
+        c: ["虎", "虎", "生", "威"],
+        p: ["hǔ", "hǔ", "shēng", "wēi"],
+        e: "(Power in the Year of the Tiger)",
+        zodiac: "虎"
+    },
+    {
+        c: ["兔", "年", "吉", "祥"],
+        p: ["tù", "nián", "jí", "xiáng"],
+        e: "(Peaceful Year of the Rabbit)",
+        zodiac: "兔"
+    },
+    {
+        c: ["龍", "年", "大", "發"],
+        p: ["lóng", "nián", "dà", "fā"],
+        e: "(Great fortune in the Year of the Dragon)",
+        zodiac: "龍"
+    },
+    {
+        c: ["蛇", "年", "順", "利"],
+        p: ["shé", "nián", "shùn", "lì"],
+        e: "(Smooth Year of the Snake)",
+        zodiac: "蛇"
+    },
+    {
+        c: ["馬", "到", "成", "功"],
+        p: ["mǎ", "dào", "chéng", "gōng"],
+        e: "(Instant success)",
+        zodiac: "馬"
+    },
+    {
+        c: ["羊", "年", "如", "意"],
+        p: ["yáng", "nián", "rú", "yì"],
+        e: "(Harmonious Year of the Goat)",
+        zodiac: "羊"
+    },
+    {
+        c: ["猴", "年", "大", "吉"],
+        p: ["hóu", "nián", "dà", "jí"],
+        e: "(Lucky Year of the Monkey)",
+        zodiac: "猴"
+    },
+    {
+        c: ["雞", "祥", "如", "意"],
+        p: ["jī", "xiáng", "rú", "yì"],
+        e: "(Auspicious Year of the Rooster)",
+        zodiac: "雞"
+    },
+    {
+        c: ["狗", "年", "安", "康"],
+        p: ["gǒu", "nián", "ān", "kāng"],
+        e: "(Peaceful Year of the Dog)",
+        zodiac: "狗"
+    },
+    {
+        c: ["豬", "年", "發", "財"],
+        p: ["zhū", "nián", "fā", "cái"],
+        e: "(Prosperity in the Year of the Pig)",
+        zodiac: "豬"
+    }
+];
+
+const availablePhrases = phrases.filter(item => {
+    if (!item.zodiac) return true;
+    return item.zodiac === CURRENT_ZODIAC;
+});
+
+function renderPhrase() {
+    const item = availablePhrases[
+        Math.floor(Math.random() * availablePhrases.length)
+    ];
+
+    item.c.forEach((char, i) => chineses[i].textContent = char);
+    item.p.forEach((py, i) => pinyins[i].textContent = py);
+    phraseEnglish.textContent = item.e;
+}
+
+renderPhrase();
+button.addEventListener("click", renderPhrase);
