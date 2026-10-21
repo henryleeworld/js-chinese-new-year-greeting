@@ -11,5 +11,5 @@ $ git clone
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/J6Qwb5t.png)
+![](https://i.imgur.com/YQEfCK6.png)
 > 不管是見面寒暄，抑或是用訊息傳情，多說拜年專用的吉祥話
